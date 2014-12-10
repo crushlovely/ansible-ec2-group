@@ -1,8 +1,9 @@
 ---
 - name: Create security group with default ports
   ec2_group:
-    name: "{{ app_name }}_{{ server_env }}"
-    description: Access to the {{ app_name }}_{{ server_env }} servers
+    name: "{{ app_name }}-{{ server_env }}"
+    description: Access to the {{ app_name }}-{{ server_env }} servers
+    vpc_id: "{{ acct_vpc_id }}"
     region: "{{ region }}"
     rules:
       - proto: tcp
@@ -16,4 +17,7 @@
       - proto: tcp
         from_port: 80
         to_port: 80
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
         cidr_ip: 0.0.0.0/0
