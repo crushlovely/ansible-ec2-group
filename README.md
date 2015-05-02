@@ -1,24 +1,25 @@
 # Ansible Role For EC2 Security Group Provisioning
 
-Provions one ec2 security group to be used with your instance/s.  This role provisions goups inside of a EC2 VPC it has notbeen tested to provision security groups in the EC2 Classic network.
+Provions one ec2 security group to be used with your instance/s.  This role provisions goups inside of a EC2 VPC it has not been tested to provision security groups in the EC2 Classic network.
 
 ## Installation
 
 ``` bash
-$ ansible-galaxy install crushlovely.ec2_group
+$ ansible-galaxy install https://github.com/crushlovely/ansible-ec2-group.git,v1.0.0
 ```
 ## Variables
 
 You will want to fill all these in before running the role.
 
 ``` yaml
-ec2_access_key: ""
-ec2_secret_key: ""
-acct_vpc_id:
-region: ""
-vpc_subnet:
-app_name:
-server_env:
+aws:
+  ec2_access_key: "Amazon IAM access key"
+  ec2_secret_key: "Aamazon secret key"
+  acct_vpc_id: "EC2 vpc id"
+  security:
+    region: "us-east-1"
+app_name: test
+server_env: qa
 ```
 You can also add a vars folder to your project folder and have your variables served by adding them to a file and calling it in your playbook.
 
@@ -36,9 +37,8 @@ Once this role is installed on your system, include it in the roles list of your
 ``` yaml
 - hosts: localhost
   connection: local
-  gather_facts: True
   roles:
-    - { role: crushlovely.ec2_group }
+    - ansible-ec2-group
 ```
 
 ## Dependencies
