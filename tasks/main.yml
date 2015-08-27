@@ -2,12 +2,12 @@
 - name: Create security group with default ports
   local_action:
     module: ec2_group
-    aws_access_key: "{{ aws.access_key }}"
-    aws_secret_key: "{{ aws.secret_key }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
     name: "{{ app_name }}-{{ server_env }}"
     description: "Access to the {{ app_name }}-{{ server_env }} servers"
-    vpc_id: "{{ aws.acct_vpc_id }}"
-    region: "{{ aws.region }}"
+    vpc_id: "{{ aws_acct_vpc_id }}"
+    region: "{{ aws_region }}"
     rules:
       - proto: tcp
         from_port: 22

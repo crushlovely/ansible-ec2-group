@@ -1,8 +1,7 @@
 ---
-aws:
-  access_key: ""
-  secret_key: ""
-  acct_vpc_id: ""
-  region: "us-east-1"
+aws_access_key: ""
+aws_secret_key: ""
+aws_acct_vpc_id: ""
+aws_region: ""
 app_name: test
 server_env: qa
