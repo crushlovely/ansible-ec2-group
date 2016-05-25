@@ -1,5 +1,5 @@
 ---
-- name: Create security group with default ports
+- name: Create security group for EC2 Instancees
   local_action:
     module: ec2_group
     aws_access_key: "{{ aws_access_key }}"
@@ -13,6 +13,30 @@
         from_port: 22
         to_port: 22
         cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+    purge_rules: no
+    purge_rules_egress: no
+
+- name: Create security group for Elastic Load Balancer
+  local_action:
+    module: ec2_group
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "{{ app_name }}-{{ server_env }}-elb"
+    description: "Access to the {{ app_name }}-{{ server_env }} load balancer"
+    vpc_id: "{{ aws_acct_vpc_id }}"
+    region: "{{ aws_region }}"
+    rules:
       - proto: tcp
         from_port: 443
         to_port: 443
